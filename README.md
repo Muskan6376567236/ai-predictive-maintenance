@@ -1,41 +1,53 @@
 # AI-Powered Predictive Maintenance System
 
+<div align="center">
+  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-green.svg" alt="Apache 2.0 License">
+  <img src="https://img.shields.io/badge/status-active-success.svg" alt="Active">
+</div>
+
 ## Overview
 
 An advanced predictive maintenance system that uses machine learning to predict equipment failures before they occur. This system combines IoT sensor data with state-of-the-art deep learning models to provide accurate failure predictions, reducing downtime and maintenance costs.
 
 ## Features
 
-- Real-time equipment monitoring
-- Advanced failure prediction algorithms
-- Customizable alert thresholds
-- Comprehensive dashboard for visualization
-- API for integration with existing systems
+- Real-time equipment monitoring via sensor data
+- Advanced failure prediction algorithms (LSTM, Transformers, Hybrid CNN-LSTM)
+- Anomaly detection for early warning systems
+- Customizable alert thresholds and notification channels
+- Comprehensive dashboard for visualization and analysis
+- RESTful API for integration with existing systems
 - Multi-modal data processing (vibration, temperature, acoustic, etc.)
+- Explainable AI for decision transparency
 
 ## Project Structure
 
 ```
 ai-predictive-maintenance/
 ├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── external/
+│   ├── raw/                    # Raw sensor data
+│   ├── processed/              # Cleaned and processed data
+│   └── external/               # Third-party datasets
 ├── models/
-│   ├── trained_models/
-│   └── training_scripts/
+│   ├── trained_models/         # Saved model weights
+│   └── training_scripts/       # Model training utilities
 ├── src/
-│   ├── data_processing/
-│   ├── feature_engineering/
-│   ├── model_training/
-│   ├── prediction_engine/
-│   └── api/
-├── tests/
-├── docs/
-├── notebooks/
-├── config/
-├── scripts/
-└── README.md
+│   ├── __init__.py
+│   ├── data_processing/        # Data ingestion and cleaning
+│   ├── feature_engineering/    # Feature extraction and selection
+│   ├── model_training/         # Model training pipelines
+│   ├── prediction_engine/      # Real-time prediction service
+│   ├── api/                    # FastAPI endpoints
+│   └── utils/                  # Common utilities
+├── tests/                      # Unit and integration tests
+├── docs/                       # Documentation
+├── notebooks/                  # Jupyter notebooks for exploration
+├── config/                     # Configuration files
+├── scripts/                    # Utility scripts
+├── requirements.txt            # Python dependencies
+├── .env.example                # Environment variables template
+└── README.md                   # This file
 ```
 
 ## Installation
@@ -51,12 +63,12 @@ ai-predictive-maintenance/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ai-predictive-maintenance.git
+git clone https://github.com/Muskan6376567236/ai-predictive-maintenance.git
 cd ai-predictive-maintenance
 
 # Create a virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+source venv/bin/activate  # On Windows use `venv\\Scripts\\activate`
 
 # Install dependencies
 pip install -r requirements.txt
@@ -64,25 +76,25 @@ pip install -r requirements.txt
 
 ## Configuration
 
-1. Copy `config/template.yaml` to `config/local.yaml`
+1. Copy `.env.example` to `.env`
 2. Update the configuration with your local settings
-3. Set up environment variables as specified in `.env.example`
+3. Set up environment variables as specified
 
 ## Data Preparation
 
 ### Sensor Data Requirements
 
-- Vibration measurements
+- Vibration measurements (accelerometer data)
 - Temperature readings
 - Acoustic emissions
-- Operational parameters
+- Operational parameters (RPM, pressure, etc.)
 - Historical failure records
 
 ### Data Processing Pipeline
 
-1. Raw data ingestion
+1. Raw data ingestion from sensors/IoT devices
 2. Data cleaning and normalization
-3. Feature extraction
+3. Feature extraction (statistical, frequency domain, time domain)
 4. Labeling (for supervised learning)
 5. Train-test split
 
@@ -90,16 +102,19 @@ pip install -r requirements.txt
 
 ### Available Models
 
-1. LSTM-based Time Series Model
-2. Transformer-based Model
-3. Hybrid CNN-LSTM Model
-4. Isolation Forest for Anomaly Detection
+1. LSTM-based Time Series Model - for temporal patterns
+2. Transformer-based Model - for long-range dependencies
+3. Hybrid CNN-LSTM Model - for multi-scale feature extraction
+4. Isolation Forest - for unsupervised anomaly detection
 
 ### Training Process
 
 ```bash
 # Train the default LSTM model
 python src/model_training/train_lstm.py --config config/local.yaml
+
+# Train the transformer model
+python src/model_training/train_transformer.py
 
 # Train all available models
 bash scripts/train_all_models.sh
@@ -116,9 +131,25 @@ python src/prediction_engine/main.py --config config/local.yaml
 
 ### API Endpoints
 
-- `POST /api/predict` - Get predictions for new sensor data
-- `GET /api/status` - Check system status
-- `GET /api/equipment/{id}` - Get equipment-specific predictions
+```
+POST /api/predict          - Get predictions for new sensor data
+GET  /api/status           - Check system status
+GET  /api/equipment/{id}   - Get equipment-specific predictions
+GET  /api/alerts           - Get active alerts
+POST /api/train            - Trigger model retraining
+```
+
+### Example Usage
+
+```python
+import requests
+
+response = requests.post(
+    "http://localhost:8000/api/predict",
+    json={"equipment_id": "EQ001", "sensor_data": [...]}
+)
+print(response.json())
+```
 
 ## Dashboard
 
@@ -126,13 +157,13 @@ python src/prediction_engine/main.py --config config/local.yaml
 
 ```bash
 # Start the dashboard
-python src/api/dashboard.py
+uvicorn src.api.main:app --reload --port 8000
 ```
 
 ### Dashboard Features
 
-- Real-time equipment status
-- Historical failure trends
+- Real-time equipment status monitoring
+- Historical failure trends visualization
 - Prediction confidence scores
 - Alert management interface
 - Custom report generation
@@ -175,6 +206,12 @@ python src/monitoring/main.py --config config/local.yaml
 
 We welcome contributions! Please see our [Contribution Guidelines](CONTRIBUTING.md) for more details.
 
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
@@ -182,7 +219,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Roadmap
 
 - [ ] Implement multi-modal data fusion
-- [ ] Add explainable AI features
+- [ ] Add explainable AI features (SHAP/LIME)
 - [ ] Develop mobile application
 - [ ] Implement edge computing capabilities
 - [ ] Add support for additional industrial protocols
@@ -190,3 +227,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Support
 
 For support, please open an issue on GitHub or contact our support team at support@predictivemaintenance.ai.
+
+---
+
+<div align="center">
+  Made with ❤️ by the Predictive Maintenance Team
+</div>
