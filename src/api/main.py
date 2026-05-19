@@ -5,6 +5,7 @@ import logging
 
 from src.utils.models import PredictionRequest, PredictionResponse, HealthCheck, FailurePrediction
 from src.utils.config import Config
+from src.prediction_engine.engine import PredictionEngine
 
 # Initialize logger
 logging.basicConfig(level=logging.INFO)
@@ -18,6 +19,9 @@ app = FastAPI(
 
 # Load configuration
 config = Config()
+
+# Initialize prediction engine
+prediction_engine = PredictionEngine()
 
 @app.get("/", response_model=HealthCheck)
 async def root():
@@ -34,19 +38,12 @@ async def predict_failure(request: PredictionRequest):
     if not request.sensor_data:
         raise HTTPException(status_code=400, detail="Sensor data is required for prediction")
 
-    # Placeholder for actual model inference logic
-    # In a real scenario, this would load a model and run inference
-    mock_prediction = FailurePrediction(
-        equipment_id=request.equipment_id,
-        probability=0.15,
-        time_to_failure_hours=450.5,
-        confidence=0.92,
-        top_contributing_factors=["Vibration X-axis", "Motor Temperature"]
-    )
+    # Use prediction engine for actual inference
+    prediction = prediction_engine.predict_failure(request.equipment_id, request.sensor_data)
     
     return PredictionResponse(
         equipment_id=request.equipment_id,
-        prediction=mock_prediction
+        prediction=prediction
     )
 
 @app.get("/api/equipment/{equipment_id}")
