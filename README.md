@@ -5,6 +5,17 @@
   <img src="https://img.shields.io/badge/License-Apache%202.0-green.svg" alt="Apache 2.0 License">
   <img src="https://img.shields.io/badge/status-active-success.svg" alt="Active">
   <img src="https://img.shields.io/badge/architecture-modular-orange.svg" alt="Modular Architecture">
+  <img src="https://img.shields.io/github/stars/Muskan6376567236/ai-predictive-maintenance?style=social" alt="GitHub stars">
+</div>
+
+
+# AI-Powered Predictive Maintenance System
+
+<div align="center">
+  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-green.svg" alt="Apache 2.0 License">
+  <img src="https://img.shields.io/badge/status-active-success.svg" alt="Active">
+  <img src="https://img.shields.io/badge/architecture-modular-orange.svg" alt="Modular Architecture">
 </div>
 
 ## Overview
