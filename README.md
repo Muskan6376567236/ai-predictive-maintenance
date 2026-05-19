@@ -4,11 +4,14 @@
   <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+">
   <img src="https://img.shields.io/badge/License-Apache%202.0-green.svg" alt="Apache 2.0 License">
   <img src="https://img.shields.io/badge/status-active-success.svg" alt="Active">
+  <img src="https://img.shields.io/badge/architecture-modular-orange.svg" alt="Modular Architecture">
 </div>
 
 ## Overview
 
 An advanced predictive maintenance system that uses machine learning to predict equipment failures before they occur. This system combines IoT sensor data with state-of-the-art deep learning models to provide accurate failure predictions, reducing downtime and maintenance costs.
+
+Built with production-grade reliability, featuring multi-modal sensor fusion, real-time anomaly detection, and explainable AI insights.
 
 ## Features
 
